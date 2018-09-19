@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using _17SeptPacman.Classes;
-using _17SeptPacman.Enum;
 
 namespace _17SeptPacman
 {
@@ -16,9 +15,10 @@ namespace _17SeptPacman
     public partial class Form1 : Form
     {
 
-        Point gridLoc = new Point();
-        int size = 500;
-        int[,] level0 = new int[10, 10]
+        private int size = 500;
+        private bool onlyOnce = false;
+
+        private int[,] level0 = new int[10, 10]
             {
                  {0,0,0,0,0,0,0,0,0,0 },
                  {0,3,3,3,0,0,3,3,3,0 },
@@ -31,14 +31,27 @@ namespace _17SeptPacman
                  {0,3,3,3,0,0,3,3,3,0 },
                  {0,0,0,0,0,0,0,0,0,0 }
             };
-        Enum.Direction direction;
-        private bool onlyOnce = false;
+
+        private int[,] level1 = new int[10, 10]
+            {
+                 {0,0,0,0,0,0,0,0,0,0 },
+                 {0,3,3,3,3,3,3,3,3,0 },
+                 {0,0,3,0,0,0,0,3,0,0 },
+                 {0,3,3,3,3,0,3,3,3,0 },
+                 {0,3,0,0,3,3,3,0,0,0 },
+                 {0,3,3,3,3,3,3,3,3,0 },
+                 {0,3,0,0,3,0,0,0,3,0 },
+                 {0,3,0,0,2,3,3,0,3,0 },
+                 {0,3,3,3,3,0,3,3,3,0 },
+                 {0,0,0,0,0,0,0,0,0,0 }
+            };
+
 
         public Form1()
         {
             InitializeComponent();
             Init();
-
+            LoadLevel(level0);
             ClientSize = new Size(size, size);
 
         }
@@ -46,31 +59,10 @@ namespace _17SeptPacman
         private void Init()
         {
             EntityFactory.Init();
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    gridLoc = new Point(j * size / 10, i * size / 10);
-                    switch (level0[i, j])
-                    {
-                        case 0:
-                            EntityFactory.SetWall(gridLoc);
-                            break;
-                        case 1:
-                            EntityFactory.SetFloor(gridLoc);
-                            break;
-                        case 2:
-                            EntityFactory.SetFloor(gridLoc);
-                            EntityFactory.SetPlayer(gridLoc);
-                            break;
-                        case 3:
-                            EntityFactory.SetFruit(gridLoc);
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
+        }
+        private void LoadLevel(int[,] levelToLoad)
+        {
+            EntityFactory.LoadLevel(size, levelToLoad);
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -91,6 +83,8 @@ namespace _17SeptPacman
                 if (DialogResult.Yes == MessageBox.Show("Reset Board?", "You Win!", MessageBoxButtons.YesNo))
                 {
                     Init();
+                    LoadLevel(level1);
+                    onlyOnce = false;
                 }
                 //MessageBox.Show("You Win!");
             }
@@ -103,22 +97,23 @@ namespace _17SeptPacman
             {
                 return;
             }
-            if (e.KeyCode == Keys.S)
-            {
-                ((Player)player).Move(size, size, Direction.DOWN, EntityFactory.entities);
-            }
-            if (e.KeyCode == Keys.W)
-            {
-                ((Player)player).Move(size, size, Direction.UP, EntityFactory.entities);
-            }
-            if (e.KeyCode == Keys.A)
-            {
-                ((Player)player).Move(size, size, Direction.LEFT, EntityFactory.entities);
-            }
-            if (e.KeyCode == Keys.D)
-            {
-                ((Player)player).Move(size, size, Direction.RIGHT, EntityFactory.entities);
-            }
+            ((Player)player).Move(size, size, EntityFactory.entities, e);
+            //if (e.KeyCode == Keys.S)
+            //{
+            //    ((Player)player).Move(size, size, Direction.DOWN, EntityFactory.entities);
+            //}
+            //if (e.KeyCode == Keys.W)
+            //{
+            //    ((Player)player).Move(size, size, Direction.UP, EntityFactory.entities);
+            //}
+            //if (e.KeyCode == Keys.A)
+            //{
+            //    ((Player)player).Move(size, size, Direction.LEFT, EntityFactory.entities);
+            //}
+            //if (e.KeyCode == Keys.D)
+            //{
+            //    ((Player)player).Move(size, size, Direction.RIGHT, EntityFactory.entities);
+            //}
         }
     }
 }

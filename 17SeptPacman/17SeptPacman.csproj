@@ -52,7 +52,6 @@
     <Compile Include="Classes\Floor.cs" />
     <Compile Include="Classes\Fruit.cs" />
     <Compile Include="Classes\SuperEnemy.cs" />
-    <Compile Include="Enum\Direction.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Wall.cs" />

@@ -25,5 +25,41 @@ namespace _17SeptPacman.Classes
 
         public static void Init() { entities = new List<Entity>(); }
 
+        public static void LoadLevel(int size, int[,] level)
+        {
+            //if (level)
+            //{
+            //
+            //}
+            Init();
+            Point gridLoc = new Point();
+
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    gridLoc = new Point(j * size / 10, i * size / 10);
+                    switch (level[i, j])
+                    {
+                        case 0:
+                            SetWall(gridLoc);
+                            break;
+                        case 1:
+                            SetFloor(gridLoc);
+                            break;
+                        case 2:
+                            SetFloor(gridLoc);
+                            SetPlayer(gridLoc);
+                            break;
+                        case 3:
+                            SetFruit(gridLoc);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
     }
 }

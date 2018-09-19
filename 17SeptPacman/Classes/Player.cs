@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using _17SeptPacman.Enum;
+using System.Windows.Forms;
 
 namespace _17SeptPacman.Classes
 {
@@ -26,66 +26,81 @@ namespace _17SeptPacman.Classes
             return !(entity is Wall);
         }
 
-        public void Move(int maxX, int maxY, Direction dir, List<Entity> entities)
+        public void Move(int maxX, int maxY, List<Entity> entities, KeyEventArgs e)
         {
             Entity entity = null;
-            switch (dir)
+            Point currentLoc = new Point(location.X,location.Y);
+            switch (e.KeyCode)
             {
-                case Direction.UP:
-                    entity = entities.Find(x => x.location == new Point(location.X, location.Y - size));
-                    if (entity == null)
-                    {
-                        break;
-                    }
-                    if (CanPassThrough((IEntity)entity))
-                    {
-                        location.Y -= size;
-                    }
+                case Keys.W:
+                    location.Y -= size;
+                    //entity = entities.Find(x => x.location == new Point(location.X, location.Y - size));
+                    //if (entity == null)
+                    //{
+                    //    break;
+                    //}
+                    //if (CanPassThrough((IEntity)entity))
+                    //{
+                    //    location.Y -= size;
+                    //}
 
                     break;
-                case Direction.DOWN:
-                    entity = entities.Find(x => x.location == new Point(location.X, location.Y + size));
-                    if (entity == null)
-                    {
-                        break;
-                    }
-                    if (CanPassThrough((IEntity)entity))
-                    {
-                        location.Y += size;
-                    }
+                case Keys.S:
+                    location.Y += size;
+                    //entity = entities.Find(x => x.location == new Point(location.X, location.Y + size));
+                    //if (entity == null)
+                    //{
+                    //    break;
+                    //}
+                    //if (CanPassThrough((IEntity)entity))
+                    //{
+                    //    location.Y += size;
+                    //}
 
                     break;
-                case Direction.LEFT:
-                    entity = entities.Find(x => x.location == new Point(location.X - size, location.Y));
-                    if (entity == null)
-                    {
-                        break;
-                    }
-                    if (CanPassThrough((IEntity)entity))
-                    {
-                        location.X -= size;
-                    }
+                case Keys.A:
+                    location.X -= size;
+                    //entity = entities.Find(x => x.location == new Point(location.X - size, location.Y));
+                    //if (entity == null)
+                    //{
+                    //    break;
+                    //}
+                    //if (CanPassThrough((IEntity)entity))
+                    //{
+                    //    location.X -= size;
+                    //}
 
                     break;
-                case Direction.RIGHT:
-                    entity = entities.Find(x => x.location == new Point(location.X + size, location.Y));
-                    if (entity == null)
-                    {
-                        break;
-                    }
-                    if (CanPassThrough((IEntity)entity))
-                    {
-                        location.X += size;
-                    }
+                case Keys.D:
+                    location.X += size;
+                    //entity = entities.Find(x => x.location == new Point(location.X + size, location.Y));
+                    //if (entity == null)
+                    //{
+                    //    break;
+                    //}
+                    //if (CanPassThrough((IEntity)entity))
+                    //{
+                    //    location.X += size;
+                    //}
 
                     break;
                 default:
                     break;
             }
+
+            entity = entities.Find(x => x.location == new Point(location.X, location.Y) && !(x is Player));
             if (entity == null)
             {
+                location.X = currentLoc.X;
+                location.Y = currentLoc.Y;
                 return;
             }
+            else if (!CanPassThrough((IEntity)entity))
+            {
+                location.X = currentLoc.X;
+                location.Y = currentLoc.Y;
+            }
+
             if (CanEat((IEntity)entity))
             {
                 EntityFactory.ReplaceByFloor(entity);
