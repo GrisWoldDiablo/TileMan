@@ -96,37 +96,28 @@ namespace _17SeptPacman
                     onlyOnce = false;
                 }
             }
+            if (!EntityFactory.entities.Exists(x => x is Player) && !onlyOnce)
+            {
+                onlyOnce = true;
+                if (DialogResult.Yes == MessageBox.Show("Reset Board?", "You Loose!", MessageBoxButtons.YesNo))
+                {
+                    Init();
+                    LoadLevel(level0);
+                    onlyOnce = false;
+                }
+            }
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             
-            
-
             Entity player = EntityFactory.entities.Find(x => x is Player);
             if (player != null)
             {
                 ((Player)player).Move(size, size, EntityFactory.entities, e);
             }
             
-
-            
-            //if (e.KeyCode == Keys.S)
-            //{
-            //    ((Player)player).Move(size, size, Direction.DOWN, EntityFactory.entities);
-            //}
-            //if (e.KeyCode == Keys.W)
-            //{
-            //    ((Player)player).Move(size, size, Direction.UP, EntityFactory.entities);
-            //}
-            //if (e.KeyCode == Keys.A)
-            //{
-            //    ((Player)player).Move(size, size, Direction.LEFT, EntityFactory.entities);
-            //}
-            //if (e.KeyCode == Keys.D)
-            //{
-            //    ((Player)player).Move(size, size, Direction.RIGHT, EntityFactory.entities);
-            //}
         }
 
         private void enemyTimer_Tick(object sender, EventArgs e)

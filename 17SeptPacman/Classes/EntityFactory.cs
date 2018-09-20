@@ -29,10 +29,7 @@ namespace _17SeptPacman.Classes
 
         public static void LoadLevel(int size, int[,] level)
         {
-            //if (level)
-            //{
-            //
-            //}
+            
             Init();
             Point gridLoc = new Point();
 

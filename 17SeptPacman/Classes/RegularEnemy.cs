@@ -27,41 +27,9 @@ namespace _17SeptPacman.Classes
             Entity player = entities.Find(x => x is Player);
             if (player == null) { return; }
 
-            //int playerX = player.location.X;
-            //int playerY = player.location.Y;
-
             int dirX = (location.X - player.location.X) > 0 ? -size : (location.X - player.location.X) < 0 ? size : 0;
             int dirY = (location.Y - player.location.Y) > 0 ? -size : (location.Y - player.location.Y) < 0 ? size : 0;
-            //bool moved = false;
-            //short direction = 0;
-            //do
-            //{
-            /*
-            if (difX < 0)
-            {
-                direction = 3;
-            }
-            else
-            {
-                direction = 2;
-            }
-            switch (direction)
-            {
-                case 0: // UP
-                    break;
-                case 1: // DOWN
-
-                    break;
-                case 2: // LEFT
-                    location.X -= size;
-                    break;
-                case 3: // RIGHT
-                    location.X += size;
-                    break;
-                default:
-                    break;
-            }
-            */
+            
             Entity entity;
             if (dirX != 0)
             {
@@ -71,13 +39,8 @@ namespace _17SeptPacman.Classes
                 {
                     location.X = currentLoc.X;
                 }
-                else
-                {
-                    return;
-                }
             }
-
-            if (dirY != 0)
+            else if (dirY != 0)
             {
                 location.Y += dirY;
                 entity = entities.Find(x => x.location.X == location.X && x.location.Y == location.Y && !(x is RegularEnemy));
@@ -85,19 +48,13 @@ namespace _17SeptPacman.Classes
                 {
                     location.Y = currentLoc.Y;
                 }
-                else
-                {
-                    return;
-                }
+            }
+            entity = entities.Find(x => x.location.X == location.X && x.location.Y == location.Y && x is Player);
+            if (CanEat((IEntity)entity))
+            {
+                entities.Remove(entity);
             }
             
-
-            //} while (!moved);
-
-
-
-
-
         }
     }
 }

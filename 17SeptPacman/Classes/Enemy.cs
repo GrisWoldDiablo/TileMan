@@ -17,7 +17,7 @@ namespace _17SeptPacman.Classes
         {
             if (entity is Player)
             {
-                return ((Player)entity).Boosted;
+                return !((Player)entity).Boosted;
             }
             else
             {
