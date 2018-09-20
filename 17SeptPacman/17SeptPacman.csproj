@@ -51,6 +51,7 @@
     <Compile Include="Classes\Entity.cs" />
     <Compile Include="Classes\Floor.cs" />
     <Compile Include="Classes\Fruit.cs" />
+    <Compile Include="Classes\RegularEnemy.cs" />
     <Compile Include="Classes\SuperEnemy.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Classes\Player.cs" />

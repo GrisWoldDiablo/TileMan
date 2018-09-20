@@ -21,6 +21,8 @@ namespace _17SeptPacman.Classes
                            
         public static void SetSuperEnemy(Point loc) { entities.Add(new SuperEnemy(loc)); }
 
+        public static void SetRegularEnemy(Point loc) { entities.Add(new RegularEnemy(loc)); }
+
         public static void ReplaceByFloor(Entity entity) { entities[entities.IndexOf(entity)] = new Floor(entity.location); }
 
         public static void Init() { entities = new List<Entity>(); }
@@ -53,6 +55,11 @@ namespace _17SeptPacman.Classes
                             break;
                         case 3:
                             SetFruit(gridLoc);
+                            break;
+                        case 4:
+                            SetFloor(gridLoc);
+                            SetFruit(gridLoc);
+                            SetRegularEnemy(gridLoc);
                             break;
                         default:
                             break;

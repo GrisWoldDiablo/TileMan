@@ -21,7 +21,7 @@ namespace _17SeptPacman
         private int[,] level0 = new int[10, 10]
             {
                  {0,0,0,0,0,0,0,0,0,0 },
-                 {0,3,3,3,0,0,3,3,3,0 },
+                 {0,4,3,3,0,0,3,3,3,0 },
                  {0,3,0,3,3,3,3,0,3,0 },
                  {0,3,3,3,0,0,3,3,3,0 },
                  {0,0,3,0,3,3,0,3,0,0 },
@@ -71,7 +71,16 @@ namespace _17SeptPacman
             {
                 ((IEntity)item).Draw(e.Graphics);
             }
-            ((IEntity)EntityFactory.entities.Find(x => x is Player)).Draw(e.Graphics);
+            Entity player = EntityFactory.entities.Find(x => x is Player);
+            if (player != null)
+            {
+                ((IEntity)player).Draw(e.Graphics); 
+            }
+            Entity regularEnemy = EntityFactory.entities.Find(x => x is RegularEnemy);
+            if (regularEnemy != null)
+            {
+                ((IEntity)regularEnemy).Draw(e.Graphics); 
+            }
         }
 
         private void refreshTimer_Tick(object sender, EventArgs e)
@@ -86,18 +95,22 @@ namespace _17SeptPacman
                     LoadLevel(level1);
                     onlyOnce = false;
                 }
-                //MessageBox.Show("You Win!");
             }
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
+            
+            
+
             Entity player = EntityFactory.entities.Find(x => x is Player);
-            if (player is null)
+            if (player != null)
             {
-                return;
+                ((Player)player).Move(size, size, EntityFactory.entities, e);
             }
-            ((Player)player).Move(size, size, EntityFactory.entities, e);
+            
+
+            
             //if (e.KeyCode == Keys.S)
             //{
             //    ((Player)player).Move(size, size, Direction.DOWN, EntityFactory.entities);
@@ -114,6 +127,15 @@ namespace _17SeptPacman
             //{
             //    ((Player)player).Move(size, size, Direction.RIGHT, EntityFactory.entities);
             //}
+        }
+
+        private void enemyTimer_Tick(object sender, EventArgs e)
+        {
+            Entity regularEnemy = EntityFactory.entities.Find(x => x is RegularEnemy);
+            if (regularEnemy != null)
+            {
+                ((RegularEnemy)regularEnemy).Move(EntityFactory.entities);
+            }
         }
     }
 }

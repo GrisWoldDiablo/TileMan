@@ -30,12 +30,19 @@
         {
             this.components = new System.ComponentModel.Container();
             this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.enemyTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // refreshTimer
             // 
             this.refreshTimer.Enabled = true;
             this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // enemyTimer
+            // 
+            this.enemyTimer.Enabled = true;
+            this.enemyTimer.Interval = 1500;
+            this.enemyTimer.Tick += new System.EventHandler(this.enemyTimer_Tick);
             // 
             // Form1
             // 
@@ -53,6 +60,7 @@
         #endregion
 
         private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.Timer enemyTimer;
     }
 }
 

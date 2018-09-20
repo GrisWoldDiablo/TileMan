@@ -34,55 +34,15 @@ namespace _17SeptPacman.Classes
             {
                 case Keys.W:
                     location.Y -= size;
-                    //entity = entities.Find(x => x.location == new Point(location.X, location.Y - size));
-                    //if (entity == null)
-                    //{
-                    //    break;
-                    //}
-                    //if (CanPassThrough((IEntity)entity))
-                    //{
-                    //    location.Y -= size;
-                    //}
-
                     break;
                 case Keys.S:
                     location.Y += size;
-                    //entity = entities.Find(x => x.location == new Point(location.X, location.Y + size));
-                    //if (entity == null)
-                    //{
-                    //    break;
-                    //}
-                    //if (CanPassThrough((IEntity)entity))
-                    //{
-                    //    location.Y += size;
-                    //}
-
                     break;
                 case Keys.A:
                     location.X -= size;
-                    //entity = entities.Find(x => x.location == new Point(location.X - size, location.Y));
-                    //if (entity == null)
-                    //{
-                    //    break;
-                    //}
-                    //if (CanPassThrough((IEntity)entity))
-                    //{
-                    //    location.X -= size;
-                    //}
-
                     break;
                 case Keys.D:
                     location.X += size;
-                    //entity = entities.Find(x => x.location == new Point(location.X + size, location.Y));
-                    //if (entity == null)
-                    //{
-                    //    break;
-                    //}
-                    //if (CanPassThrough((IEntity)entity))
-                    //{
-                    //    location.X += size;
-                    //}
-
                     break;
                 default:
                     break;
